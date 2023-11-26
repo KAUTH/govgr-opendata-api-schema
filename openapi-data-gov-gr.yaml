@@ -1,0 +1,3530 @@
+openapi: 3.0.0
+info:
+  title: Data Gov GR (Unofficial API documentation)
+  version: 1.0.0
+  description: Data published by Greek central government, local authorities and public bodies.
+servers:
+  - url: https://data.gov.gr/api/v1
+
+# `description` from https://data.gov.gr
+tags:
+  - name: Business and Economy
+    description: Small businesses, industry, imports, exports and trade
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=business
+  - name: Crime and Justice
+    description: Courts, police, prison, offenders, borders and immigration
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=crime
+  - name: Education
+    description: Students, training, universities, quaifications
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=education
+  - name: Environment
+    description: Weather, flooding, rivers, air quality, geology and agriculture
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=environment
+  - name: Health
+    description: Includes smoking, drugs, alcohol, medicine performance and hospitals
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=health 
+  - name: Society
+    description: Employment, benefits, household finances, poverty and population
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=society
+  - name: State and Democracy
+    description: Endpoints currently return no data
+    externalDocs:
+      url: https://data.gov.gr/search/
+  - name: Technology
+    description: Internet, technology and digital adoption
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=technology
+  - name: Telecommunication
+    description: Telecommunications data, television and radio
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=telecom
+  - name: Transport
+    description: Airports, roads, freight, electric vehicles, parking, buses and footpaths
+    externalDocs:
+      url: https://data.gov.gr/search/?topic=transport
+
+
+paths:
+# Crime and Justice
+  /query/mcp_traffic_violations:
+    get:
+      summary: Traffic Violations
+      tags:
+        - Crime and Justice
+      description: Data from the Ministry of Citizen Protection on various traffic violations including the count and type of violation, along with the year
+      externalDocs:
+        description: Confirmed offences by category
+        url: https://data.gov.gr/datasets/mcp_traffic_violations
+      operationId: getTrafficViolationsData
+      responses:
+        '200':
+          description: An array of traffic violations data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrafficViolationData'
+
+  /query/mcp_traffic_accidents:
+    get:
+      summary: Traffic Accidents
+      tags:
+        - Crime and Justice
+      description: Data from the Ministry of Citizen Protection on traffic accidents including counts of deadly and serious accidents, deaths, injuries, and jurisdiction, along with the year
+      externalDocs:
+        description: Traffic accidents and victims by General Police Directorate
+        url: https://data.gov.gr/datasets/mcp_traffic_accidents
+      operationId: getTrafficAccidentsData
+      responses:
+        '200':
+          description: An array of traffic accidents data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrafficAccidentData'
+  
+  /query/hcg_incidents:
+    get:
+      summary: Hellenic Coast Guard Incidents 
+      tags:
+        - Crime and Justice
+      description: Data from the Hellenic Coast Guard on various incidents reported, including domestic and international incidents, categorized by type and year
+      externalDocs:
+        description: Annual information on the operational activity - incident management under the responsibility of the HCG Operations Center
+        url: https://data.gov.gr/datasets/hcg_incidents
+      operationId: getHCGIncidentsData
+      responses:
+        '200':
+          description: An array of HCG incidents data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HCGIncidentData'
+
+  /query/mcp_crime:
+    get:
+      summary: Crimes
+      tags:
+        - Crime and Justice
+      description: Data from the Ministry of Citizen Protection on various crimes including attempted and committed crimes, domestic and foreign criminals involved, and solved cases, along with the year
+      externalDocs:
+        description: Statistics on crimes relevant to Public Safatey for the territory
+        url: https://data.gov.gr/datasets/mcp_crime
+      operationId: getCrimeData
+      responses:
+        '200':
+          description: An array of crime data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CrimeData'
+  
+  /query/mcp_financial_crimes:
+    get:
+      summary: Financial Crimes
+      tags:
+        - Crime and Justice
+      description: Data from the Ministry of Citizen Protection on various financial crimes including the count and type of crime, along with the year
+      externalDocs:
+        description: Total number of D.O.A. actions carried out for economic offences by category of offence
+        url: https://data.gov.gr/api/v1/query/mcp_financial_crimes
+      operationId: getFinancialCrimesData
+      responses:
+        '200':
+          description: An array of financial crimes data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinancialCrimeData'
+  
+  /query/minjust_law_firms:
+    get:
+      summary: Law Firms
+      tags:
+        - Crime and Justice
+      description: Data from the Greek Ministry of Justice on law firms including active firms, entrants, exits, quarter, and year
+      externalDocs:
+        description: Number of law firms, new entrants and exits
+        url: https://data.gov.gr/datasets/minjust_law_firms
+      operationId: getLawFirmsData
+      responses:
+        '200':
+          description: An array of law firms data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LawFirmData'
+
+  /query/minjust_lawyers:
+    get:
+      summary: Lawyers
+      tags:
+        - Crime and Justice
+      description: Data from the Greek Ministry of Justice with lawyer information including active, entrants, exits, quarter, and year
+      externalDocs:
+        description: Number of lawyers, new entrants and exits
+        url: https://data.gov.gr/datasets/minjust_lawyers
+      operationId: getLawyersData
+      responses:
+        '200':
+          description: A JSON array of lawyers data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LawyerData'
+
+# Education
+
+  /query/minedu_schools:
+    get:
+      summary: Schools
+      tags:
+        - Education
+      description: Data from the Ministry of Education on schools including area, district, email, etc.
+      externalDocs:
+        description: List of schools by regional unit, municipality and community
+        url: https://data.gov.gr/datasets/minedu_schools
+      operationId: getSchoolsData
+      responses:
+        '200':
+          description: An array of schools data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SchoolData'
+
+  /query/minedu_dep:
+    get:
+      summary: Academic Staff
+      tags:
+        - Education
+      description:  Data from the Ministry of Education on academic staff in various educational institutions, including counts of professors, lecturers, and the institution name, along with the year
+      externalDocs:
+        description: Faculty members by grade and by institution
+        url: https://data.gov.gr/datasets/minedu_dep
+      operationId: getAcademicStaffData
+      responses:
+        '200':
+          description: An array of academic staff data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcademicStaffData'
+              example: 
+                - assistant_professors: 3
+                  associate_professors: 4
+                  full_professors: 0
+                  institution: "ΑΝΩΤΑΤΗ ΕΚΚΛΗΣΙΑΣΤΙΚΗ ΑΚΑΔ"
+                  lecturers: 0
+                  practice_lecturers: 0
+                  practice_professors: 0
+                  year: 2018
+    
+  /query/minedu_students_school:
+    get:
+      summary: Students in Schools
+      tags:
+        - Education
+      description: Data from the Ministry of Education on student registrations in various schools, including counts of boys and girls, school names, types, classes, and the year
+      externalDocs:
+        description: Number of students by school and gender
+        url: https://data.gov.gr/datasets/minedu_students_school
+      operationId: getStudentsInSchoolsData
+      responses:
+        '200':
+          description: An array of students in schools data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentsSchoolData'
+              example: 
+                - district: "ΔΙΕΥΘΥΝΣΗ Δ.Ε. Α΄ ΑΘΗΝΑΣ"
+                  jurisdiction: "ΣΙΒΙΤΑΝΙΔΕΙΟΣ ΔΗΜΟΣΙΑ ΣΧΟΛΗ ΤΕΧΝΩΝ ΚΑΙ ΕΠΑΓΓΕΛΜΑΤΩΝ"
+                  registered_students_boys: 320
+                  registered_students_girls: 82
+                  school_class: "Επαγγελματικά Λύκεια"
+                  school_name: "2ο ΗΜΕΡΗΣΙΟ ΕΠΑΛ ΣΙΒΙΤΑΝΙΔΕΙΟΥ - ΛΟΥΪΖΟΣ ΣΙΒΙΤΑΝΙΔΗΣ"
+                  school_type: "Ημερήσιο ΕΠΑΛ"
+                  year: 2018
+  
+  /query/grnet_atlas:
+    get:
+      summary: Internships
+      tags:
+        - Education
+      description: Data from GRNET on the number of internships in various sectors (NGO, private sector, public sector) for different institutions, and the year
+      externalDocs:
+        description: Include the number of Internships carried out per year, per institution and per type of company
+        url: https://data.gov.gr/datasets/grnet_atlas
+      operationId: getInstitutionalAffiliationData
+      responses:
+        '200':
+          description: An array of institutional affiliation data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InstitutionalAffiliationData'
+              example: 
+                - institution: "ΧΑΡΟΚΟΠΕΙΟ ΠΑΝΕΠΙΣΤΗΜΙΟ"
+                  ngo: 15
+                  private_sector: 153
+                  public_sector: 52
+                  year: 2018
+  
+  /query/grnet_eudoxus:
+    get:
+      summary: Eudoxus System
+      tags:
+        - Education
+      description: Data from GRNET on student interactions with the Eudoxus system, including department, institution, period, and student statistics
+      externalDocs:
+        description: List of the number of students who registered and received books through the Eudoxus system
+        url: https://data.gov.gr/datasets/grnet_atlas
+      operationId: getEudoxusData
+      responses:
+        '200':
+          description: An array of Eudoxus system data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EudoxusData'
+              example: 
+                - department: "ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΤΗΛΕΜΑΤΙΚΗΣ"
+                  institution: "ΧΑΡΟΚΟΠΕΙΟ ΠΑΝΕΠΙΣΤΗΜΙΟ"
+                  period: "Εαρινή"
+                  studentwithdeliveries: 12
+                  studentwithstatements: 57
+                  year: 2017
+
+# Environment
+
+  /query/ktm_harea:
+      get:
+        summary: Cadastral Horizontal Area per Local Government Organizations
+        tags:
+          - Environment
+        description: Data from the National Cadastre on the horizontal area of Local Government Organizations for specific dates
+        externalDocs:
+          description: Horizontal floor area per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_harea
+        operationId: getKTMHareaData
+        parameters:
+          - name: date_from
+            in: query
+            required: true
+            description: Start date for the data query.
+            schema:
+              type: string
+              format: date
+            example: "2023-03-01"
+          - name: date_to
+            in: query
+            required: true
+            description: End date for the data query.
+            schema:
+              type: string
+              format: date
+            example: "2023-04-28"
+        responses:
+          '200':
+            description: An array of KTM Harea data records
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/KTMHareaData'
+                example:
+                  - area: 2939654.941
+                    date: "2023-03-01"
+                    ota_full_name: "ΑΤΤΙΚΗΣ ΑΧΑΡΝΩΝ"
+                    ota_id: 5028
+                    ota_name: "ΑΧΑΡΝΩΝ"
+                    ota_name_en: "axarnon"
+                  - area: 836714.206
+                    date: "2023-03-01"
+                    ota_full_name: "ΘΕΣΣΑΛΟΝΙΚΗΣ ΠΕΡΑΙΑΣ"
+                    ota_id: 19094
+                    ota_name: "ΠΕΡΑΙΑΣ"
+                    ota_name_en: "pereas"
+
+  /query/ktm_confs:
+    get:
+      summary: Confiscations per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on confiscations of Local Government Organizations for specific dates
+      externalDocs:
+          description: Number of confiscations per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_confs
+      operationId: getKTMConfiscationData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-04-28"
+      responses:
+        '200':
+          description: An array of KTM confiscation data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMConfiscationData'
+              example:
+                - confiscations: 327
+                  date: "2023-03-02"
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_id: 1003
+                  ota_name: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_name_en: "agelokastro"
+                - confiscations: 99
+                  date: "2023-03-02"
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_id: 1011
+                  ota_name: "ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_name_en: "agioilia"
+
+  /query/ktm_liens:
+    get:
+      summary: Mortgages per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on mortgages per Local Government Organizations (aka O.T.A.) for specific dates
+      externalDocs:
+          description: Number of mortgages per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_liens
+      operationId: getKTMLienData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-04-28"
+      responses:
+        '200':
+          description: An array of KTM lien data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMLienData'
+              example:
+                - date: "2023-03-23"
+                  liens: 364
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_id: 1003
+                  ota_name: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_name_en: "agelokastro"
+                - date: "2023-03-23"
+                  liens: 60
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_id: 1011
+                  ota_name: "ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_name_en: "agioilia"
+  
+  /query/ktm_transactions:
+    get:
+      summary: Transactions per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on transactions for specific dates
+      externalDocs:
+          description: Number of purchases and sales (transactions) by Local Government Organizations, aka O.T.A. (Since the beginning of the year)
+          url: https://data.gov.gr/datasets/ktm_transactions
+      operationId: getKTMTransactionData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-04-28"
+      responses:
+        '200':
+          description: An array of KTM transaction data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMTransactionData'
+              example:
+                - date: "2023-04-28"
+                  ota_full_name: "ΚΑΒΑΛΑΣ ΑΚΡΟΠΟΤΑΜΟΥ"
+                  ota_id: 21005
+                  ota_name: "ΑΚΡΟΠΟΤΑΜΟΥ"
+                  ota_name_en: "akropotamo"
+                  transactions: 10
+                - date: "2023-04-28"
+                  ota_full_name: "ΠΙΕΡΙΑΣ ΜΑΚΡΥΓΙΑΛΟΥ"
+                  ota_id: 39030
+                  ota_name: "ΜΑΚΡΥΓΙΑΛΟΥ"
+                  ota_name_en: "makrigialo"
+                  transactions: 9
+
+  /query/ktm_owners:
+    get:
+      summary: Number of owners per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on property ownership for specific dates
+      externalDocs:
+          description: Number of owners per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_owners
+      operationId: getKTMOwnersData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-04-28"
+      responses:
+        '200':
+          description: An array of KTM owners data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMOwnersData'
+              example:
+                - date: "2023-03-01"
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_id: 1003
+                  ota_name: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+                  ota_name_en: "agelokastro"
+                  owners: 1627
+                - date: "2023-03-01"
+                  ota_full_name: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_id: 1011
+                  ota_name: "ΑΓΙΟΥ ΗΛΙΑ"
+                  ota_name_en: "agioilia"
+                  owners: 387
+
+  /query/ktm_hplots:
+    get:
+      summary: Number of horizontal properties per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on housing plots for specific dates
+      externalDocs:
+          description: Number of horizontal properties per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_hplots
+      operationId: getKTMHPlotsData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-04-28"
+      responses:
+        '200':
+          description: An array of KTM housing plots data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMHPlotsData'
+              example:
+                - date: "2023-03-02"
+                  ota_full_name: "ΑΤΤΙΚΗΣ ΑΧΑΡΝΩΝ"
+                  ota_id: 5028
+                  ota_name: "ΑΧΑΡΝΩΝ"
+                  ota_name_en: "axarnon"
+                  plots: 46920
+                - date: "2023-03-02"
+                  ota_full_name: "ΘΕΣΣΑΛΟΝΙΚΗΣ ΠΕΡΑΙΑΣ"
+                  ota_id: 19094
+                  ota_name: "ΠΕΡΑΙΑΣ"
+                  ota_name_en: "pereas"
+                  plots: 13672
+
+  /query/ktm_status:
+    get:
+      summary: Cadastre status per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on the cadastre status for specific dates
+      externalDocs:
+          description: Cadastral status per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_status
+      operationId: getKTMStatusData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2023-03-03"
+      responses:
+        '200':
+          description: An array of KTM status data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KTMStatusData'
+              example:
+                - date: "2023-03-01"
+                  ota_full_name: "ΑΡΚΑΔΙΑΣ ΣΤΕΝΟΥ"
+                  ota_id: 3218
+                  ota_name: "ΣΤΕΝΟΥ"
+                  ota_name_en: "steno"
+                  status: "ΑΝΑΡΤΗΣΗ"
+                - date: "2023-03-01"
+                  ota_full_name: "ΑΡΚΑΔΙΑΣ ΣΤΟΛΟΥ"
+                  ota_id: 3219
+                  ota_name: "ΣΤΟΛΟΥ"
+                  ota_name_en: "stolo"
+                  status: "ΑΝΑΡΤΗΣΗ"
+
+  /query/admie_realtimescadares:
+    get:
+      summary: Renewable energy sources
+      tags:
+        - Environment
+      description: Data from IPTO (aka ADMIE), Independent Power Transition Operator, from real-time SCADA information for specific dates
+      externalDocs:
+          description: Energy produced from renewable energy sources in Greece, measured in megawatt hours (MWh)
+          url: https://data.gov.gr/datasets/admie_realtimescadares
+      operationId: getADMIESCADAData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date and time for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2023-03-01T00:00:00Z"
+        - name: date_to
+          in: query
+          required: true
+          description: End date and time for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2023-03-03T00:00:00Z"
+      responses:
+        '200':
+          description: An array of ADMIE real-time SCADA reserves data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ADMIESCADAData'
+              example:
+                - date: "2023-03-01T00:00:00Z"
+                  energy_mwh: 886
+                - date: "2023-03-01T01:00:00Z"
+                  energy_mwh: 1013
+
+  /query/admie_dailyenergybalanceanalysis:
+    get:
+      summary: Energy system load
+      tags:
+        - Environment
+      description: Data from IPTO (aka ADMIE), Independent Power Transition Operator, on daily energy balance for specific dates
+      externalDocs:
+          description: Energy system load in Greece
+          url: https://data.gov.gr/datasets/admie_realtimescadasystemload
+      operationId: getADMIEDailyEnergyBalance
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2023-03-01T00:00:00Z"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2023-03-03T00:00:00Z"
+      responses:
+        '200':
+          description: An array of ADMIE daily energy balance analysis data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ADMIEDailyEnergyBalanceData'
+              example:
+                - date: "2023-03-01T00:00:00Z"
+                  energy_mwh: 15284
+                  fuel: "ΛΙΓΝΙΤΗΣ"
+                  percentage: 0.1316065923846591
+                - date: "2023-03-01T00:00:00Z"
+                  energy_mwh: 52627
+                  fuel: "ΑΕΡΙΟ"
+                  percentage: 0.45315755937107133
+
+  /query/cadastre_natura_plot:
+    get:
+      summary: Natura protected areas
+      tags:
+        - Environment
+      description: Data from the National Cadastre on Natura protected areas for specific dates
+      externalDocs:
+          description: Number and area of parcels of land in protected areas per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/cadastre_natura_plot
+      operationId: getCadastreNaturaPlot
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2021-03-01T00:00:00Z"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2021-03-03T00:00:00Z"
+      responses:
+        '200':
+          description: An array of Cadastre Natura plot data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CadastreNaturaPlotData'
+              example:
+                - area: 1894778.3375080035
+                  date: "2021-03-02T00:00:00Z"
+                  local_authority_id: "1003"
+                  plot_number: 390
+                - area: 9743232.717737898
+                  date: "2021-03-02T00:00:00Z"
+                  local_authority_id: "10060"
+                  plot_number: 221
+
+  /query/cadastre_plot:
+    get:
+      summary: Land parcels per Local Government Organizations 
+      tags:
+        - Environment
+      description: Data from the National Cadastre on land parcels for specific dates
+      externalDocs:
+          description: Number and average area of land parcels per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/cadastre_plot
+      operationId: getCadastrePlot
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2021-03-01T00:00:00Z"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+          example: "2021-03-03T00:00:00Z"
+      responses:
+        '200':
+          description: An array of Cadastre plot data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CadastrePlotData'
+              example:
+                - avg_area: 7061.933960425182
+                  date: "2021-03-02T00:00:00Z"
+                  local_authority_id: "1003"
+                  plot_number: 4523
+                - avg_area: 6739.598865007277
+                  date: "2021-03-02T00:00:00Z"
+                  local_authority_id: "1011"
+                  plot_number: 1065
+
+  /query/ktm_plots:
+    get:
+      summary: Number of land parcels per Local Government Organizations
+      tags:
+        - Environment
+      description: Data from the National Cadastre on plots for specific dates
+      externalDocs:
+          description: Number of land plots per Local Government Organizations (aka O.T.A.)
+          url: https://data.gov.gr/datasets/ktm_plots
+      operationId: getKtmPlots
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of KTM plots data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KtmPlotData'
+              example:
+                - date: "2020-12-30"
+                  ota_id: 5133
+                  ota_name: "ΣΠΑΤΩΝ-ΛΟΥΤΣΑΣ"
+                  ota_name_en: "spaton-lotsas"
+                  plots: 39161
+                - date: "2020-12-30"
+                  ota_id: 5141
+                  ota_name: "ΥΜΗΤΤΟΥ"
+                  ota_name_en: "imito"
+                  plots: 2782
+
+  /query/electricity_consumption:
+    get:
+      summary: Electricity Consumption
+      tags:
+        - Environment
+      description: Data from HEDNO (aka DEDDIE), Hellenic Electricity Distribution Network, on electricity consumption for specific dates and areas
+      externalDocs:
+        description: Electricity consumption in Greece
+        url: https://data.gov.gr/datasets/electricity_consumption
+      operationId: getElectricityConsumption
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of electricity consumption data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElectricityConsumptionData'
+              example:
+                - area: "ΚΡΗΤΗ"
+                  date: "2020-08-09T00:00:00Z"
+                  energy_mwh: 9539.66
+                - area: "ΡΟΔΟΣ"
+                  date: "2020-08-09T00:00:00Z"
+                  energy_mwh: 2442.9
+
+  /query/mcp_urban_incidents:
+    get:
+      summary: Fire Service for Urban Incidents
+      tags:
+        - Environment
+      description: Data from the Ministry of Citizen Protection on urban incidents, including details about fires, damages, and emergency responses
+      externalDocs:
+        description: Data concerning the civil incidents in which the Fire Service intervenes. The statistical reports are derived from the processing of the physical incident reports
+        url: https://data.gov.gr/datasets/mcp_urban_incidents
+      operationId: getUrbanIncidents
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of urban incident data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UrbanIncidentData'
+              example:
+                - accident_type: None
+                  burns: 0
+                  damages: 0
+                  deaths: 0
+                  end_time: "2017-03-10T20:35:00"
+                  firefighters: 9
+                  fire_station: "Π.Κ. ΚΑΛΑΜΟΥ"
+                  fire_trucks: 3
+                  fire_vessels: 0
+                  incident: "ΔΕΛΤΙΟ ΠΥΡΚΑΓΙΑΣ"
+                  incident_detail: "ΜΙΚΡΗ"
+                  injuries: 0
+                  location_description: "ΟΙΚΟΠΕΔΙΚΟΙ ΧΩΡΟΙ"
+                  municipality: "Δ. ΩΡΩΠΟΥ"
+                  people_involved: 1
+                  prefecture: "ΑΤΤΙΚΗΣ"
+                  start_time: "2017-03-10T16:41:00"
+                  village: "ΑΦΙΔΝΕΣ"
+                - accident_type: None
+                  burns: 0
+                  damages: 0
+                  deaths: 0
+                  end_time: "2017-03-12T10:35:00"
+                  firefighters: 2
+                  fire_station: "Π.Κ. ΚΑΛΑΜΟΥ"
+                  fire_trucks: 1
+                  fire_vessels: 0
+                  incident: "ΔΕΛΤΙΟ ΠΑΡΟΧΗΣ ΒΟΗΘΕΙΑΣ"
+                  incident_detail: "ΑΝΤΛΗΣΗ ΝΕΡΟΥ"
+                  injuries: 0
+                  location_description: "ΜΟΝΟΚΑΤΟΙΚΙΕΣ"
+                  municipality: "Δ. ΩΡΩΠΟΥ"
+                  people_involved: 1
+                  prefecture: "ΑΤΤΙΚΗΣ"
+                  start_time: "2017-03-12T10:11:00"
+                  village: "ΑΦΙΔΝΕΣ"
+
+  /query/mcp_forest_fires:
+    get:
+      summary: Forest Fires
+      tags:
+        - Environment
+      description: Data from the Ministry of Citizen Protection on forest fires, including details about the affected areas, firefighting resources, and fire management
+      externalDocs:
+        description: Data concerning the Forestry incidents in which the Fire Service intervenes. The statistical reports are derived from the processing of the physical incident reports
+        url: https://data.gov.gr/datasets/mcp_forest_fires
+      operationId: getForestFires
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of forest fire data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ForestFireData'
+              example:
+                - address: "ΕΠΑΡΧΙΑΚΗ ΟΔΟΣ ΚΟΥΒΑΡΑ -ΠΕΤΑ -ΚΟΥΒΑΡΑΣ"
+                  agricultural_area_burned: 0.0
+                  airplanes_cl215: 0
+                  airplanes_cl415: 0
+                  airplanes_gru: 0
+                  airplanes_pzl: 0
+                  army: 0
+                  crop_residue_area_burned: 0.0
+                  dumping_ground_area_burned: 0.0
+                  end_time: "2018-03-09T18:30:00"
+                  firefighters: 8
+                  fire_station: "Π.Υ. ΜΑΡΚΟΠΟΥΛΟΥ"
+                  fire_trucks: 4
+                  forest_area_burned: 0.0
+                  forestry: "ΛΑΥΡΙΟΥ"
+                  grove_area_burned: 0.0
+                  helicopters: 0
+                  local_authorities_vehicles: 0
+                  location: None
+                  low_vegetation_area_burned: 0.0
+                  machinery: 0
+                  municipality: "Δ. ΣΑΡΩΝΙΚΟΥ"
+                  other_firefighters: 0
+                  prefecture: "ΑΤΤΙΚΗΣ"
+                  start_time: "2018-03-09T16:52:00"
+                  swamp_area_burned: 0.5
+                  volunteers: 0
+                  water_tank_trucks: 0
+                  wildland_crew: 0
+                  woodland_area_burned: 0.0
+                - address: "ΑΓΡΟΤΙΚΗ ΠΕΡΙΟΧΗ ΦΩΤΟΛΙΒΟΥΣ"
+                  agricultural_area_burned: 2.0
+                  airplanes_cl215: 0
+                  airplanes_cl415: 0
+                  airplanes_gru: 0
+                  airplanes_pzl: 0
+                  army: 0
+                  crop_residue_area_burned: 0.0
+                  dumping_ground_area_burned: 0.0
+                  end_time: "2018-03-09T17:20:00"
+                  firefighters: 6
+                  fire_station: "Π.Υ. ΔΡΑΜΑΣ"
+                  fire_trucks: 2
+                  forest_area_burned: 0.0
+                  forestry: "ΔΡΑΜΑΣ"
+                  grove_area_burned: 0.0
+                  helicopters: 0
+                  local_authorities_vehicles: 0
+                  location: None
+                  low_vegetation_area_burned: 0.0
+                  machinery: 0
+                  municipality: "Δ. ΠΡΟΣΟΤΣΑΝΗΣ"
+                  other_firefighters: 0
+                  prefecture: "ΔΡΑΜΑΣ"
+                  start_time: "2018-03-09T15:00:00"
+                  swamp_area_burned: 0.0
+                  volunteers: 0
+                  water_tank_trucks: 0
+                  wildland_crew: 0
+                  woodland_area_burned: 0.0
+
+# Health
+
+  /query/mdg_emvolio:
+    get:
+      summary: COVID-19 Vaccinations
+      tags:
+        - Health
+      description: Data from the Greek Government on COVID-19 vaccinations, including daily and total doses administered, across different regions
+      externalDocs:
+        description: COVID-19 vaccination statistics by regional unit and day
+        url: https://data.gov.gr/datasets/mdg_emvolio
+      operationId: getVaccinationData
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of COVID-19 vaccination data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaccinationData'
+              example:
+                - area: "ΑΙΤΩΛΟΑΚΑΡΝΑΝΙΑΣ"
+                  areaid: 701
+                  dailydose1: 267
+                  dailydose2: 113
+                  dailydose3: 0
+                  daydiff: 3
+                  daytotal: 380
+                  referencedate: "2021-03-13T00:00:00"
+                  totaldistinctpersons: 10889
+                  totaldose1: 10889
+                  totaldose2: 4375
+                  totaldose3: 0
+                  totalvaccinations: 15264
+                - area: "ΑΝΑΤΟΛΙΚΗΣ ΑΤΤΙΚΗΣ"
+                  areaid: 901
+                  dailydose1: 838
+                  dailydose2: 41
+                  dailydose3: 0
+                  daydiff: -69
+                  daytotal: 879
+                  referencedate: "2021-03-13T00:00:00"
+                  totaldistinctpersons: 23140
+                  totaldose1: 23140
+                  totaldose2: 9903
+                  totaldose3: 0
+                  totalvaccinations: 33043
+
+  /query/mdg_emvolio_weekly:
+    get:
+      summary: COVID-19 Vaccinations (weekly)
+      tags:
+        - Health
+      description: Data from the Greek Government on COVID-19 vaccinations, including total and weekly doses administered, across different regions
+      externalDocs:
+        description: COVID-19 vaccination statistics by regional unit and week
+        url: https://data.gov.gr/datasets/mdg_emvolio_weekly
+      operationId: getWeeklyVaccinationData
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of weekly COVID-19 vaccination data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeeklyVaccinationData'
+              example:
+                - area: "ΑΙΤΩΛΟΑΚΑΡΝΑΝΙΑΣ"
+                  areaid: 701
+                  totaldistinctpersons: 10350
+                  totaldose1: 10350
+                  totaldose2: 4157
+                  totaldose3: 0
+                  totalvaccinations: 14507
+                  weekdiff: -243
+                  weeklydose1: 1906
+                  weeklydose2: 613
+                  weeklydose3: 0
+                  weekreferencedate: "2021-03-11T00:00:00"
+                  weektotal: 2519
+                - area: "ΑΝΑΤΟΛΙΚΗΣ ΑΤΤΙΚΗΣ"
+                  areaid: 901
+                  totaldistinctpersons: 21408
+                  totaldose1: 21408
+                  totaldose2: 9808
+                  totaldose3: 0
+                  totalvaccinations: 31216
+                  weekdiff: 325
+                  weeklydose1: 5133
+                  weeklydose2: 908
+                  weeklydose3: 0
+                  weekreferencedate: "2021-03-11T00:00:00"
+                  weektotal: 6041
+
+  /query/efet_inspections:
+    get:
+      summary: Food Company Checks and Infringements
+      tags:
+        - Health
+      description: Data from the HFA (aka EFET), Hellenic Food Authority, on inspections, penalties, and violations recorded
+      externalDocs:
+        description: Annual statistical results of official controls of food businesses
+        url: https://data.gov.gr/datasets/efet_inspections
+      operationId: getEfetInspectionsData
+      parameters:
+        - name: date_from
+          in: query
+          required: false
+          description: Start date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          required: false
+          description: End date for the data query in ISO 8601 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: An array of EFET inspections data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EfetInspectionsData'
+              example:
+                - inspections: None
+                  penalties: 1660950.0
+                  violating_organizations: 132.0
+                  violations: None
+                  year: 2005
+                - inspections: None
+                  penalties: 1660950.0
+                  violating_organizations: 133.0
+                  violations: None
+                  year: 2006
+
+  /query/minhealth_pharmacists:
+    get:
+      summary: Pharmacists
+      tags:
+        - Health
+      description: Data from the Ministry of Health on the number of active pharmacists, entrants to the profession, and exits from the profession
+      externalDocs:
+        description: Number of active pharmacists, new entrants and exits
+        url: https://data.gov.gr/datasets/minhealth_pharmacists
+      operationId: getMinHealthPharmacistsData
+      responses:
+        '200':
+          description: An array of pharmacists data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PharmacistsData'
+              example:
+                - active: 5909
+                  entrants: None
+                  exits: 58
+                  quarter: 'Q4'
+                  year: 2011
+                - active: 5960
+                  entrants: 109
+                  exits: 0
+                  quarter: 'Q1'
+                  year: 2012
+
+  /query/minhealth_pharmacies:
+    get:
+      summary: Pharmacies
+      tags:
+        - Health
+      description: Data from the Ministry of Health on the number of active pharmacies, new entrants, and exits in the pharmacy sector within specified dates
+      externalDocs:
+        description: Number of pharmacies, new entrants and exits
+        url: https://data.gov.gr/datasets/minhealth_pharmacies
+      operationId: getPharmacyData
+      responses:
+        '200':
+          description: An array of pharmacy data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PharmacyData'
+              example:
+                - active: 10223
+                  entrants: null
+                  exits: null
+                  quarter: "Q4"
+                  year: 2011
+                - active: 10328
+                  entrants: 156
+                  exits: 51
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/minhealth_dentists:
+    get:
+      summary: Dentists
+      tags:
+        - Health
+      description: Data from the Ministry of Health on the number of active dentists, new entrants, and exits in the dental sector within specified dates
+      externalDocs:
+        description: Number of active dentists, new entrants and exits
+        url: https://data.gov.gr/datasets/minhealth_dentists
+      operationId: getDentistData
+      responses:
+        '200':
+          description: An array of dentist data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistData'
+              example:
+                - active: 15818
+                  entrants: null
+                  exits: 59
+                  quarter: "Q4"
+                  year: 2011
+                - active: 15834
+                  entrants: 81
+                  exits: 6
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/minhealth_doctors:
+    get:
+      summary: Doctors
+      tags:
+        - Health
+      description: Data from the Ministry of Health on the number of active doctors, new entrants, and exits in the medical sector within specified dates
+      externalDocs:
+        description: Number of active doctors, new entrants and exits
+        url: https://data.gov.gr/datasets/minhealth_doctors
+      operationId: getDoctorData
+      responses:
+        '200':
+          description: An array of doctor data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoctorData'
+              example:
+                - active: 76438
+                  entrants: null
+                  exits: 151
+                  quarter: "Q4"
+                  year: 2011
+                - active: 76597
+                  entrants: 317
+                  exits: 7
+                  quarter: "Q1"
+                  year: 2012
+
+# Business and Economy
+
+  /query/mintour_agencies:
+    get:
+      summary: Tourist Offices
+      tags:
+        - Business and Economy
+      description: Data from the Ministry of Tourism on the number of active tourist offices, new entrants, and exits within specified dates
+      externalDocs:
+        description: Number of active travel agencies, new entrants and exits
+        url: https://data.gov.gr/datasets/mintour_agencies
+      operationId: getTourismAgenciesData
+      responses:
+        '200':
+          description: An array of tourism agencies data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TourismAgenciesData'
+              example:
+                - active: 4105
+                  entrants: 300
+                  exits: 355
+                  quarter: "Q4"
+                  year: 2011
+                - active: 4094
+                  entrants: 85
+                  exits: 96
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/mindev_realtors:
+    get:
+      summary: Realtors
+      tags:
+        - Business and Economy
+      description: Data from the Ministry of Development and Investments on the number of active realtors, new entrants, and exits within specified dates
+      externalDocs:
+        description: Number of active realtors, new entrants and exits
+        url: https://data.gov.gr/datasets/mindev_realtors
+      operationId: getRealtorsData
+      responses:
+        '200':
+          description: An array of realtors data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RealtorsData'
+              example:
+                - active: 5050
+                  entrants: 212
+                  exits: 193
+                  quarter: "Q4"
+                  year: 2011
+                - active: 5066
+                  entrants: 78
+                  exits: 62
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/minenv_inspectors:
+    get:
+      summary: Energy Inspectors
+      tags:
+        - Business and Economy
+      description: Data from the Ministry Of Environment and Energy on the number of active environmental inspectors, new entrants, and exits within specified dates
+      externalDocs:
+        description: Number of active energy inspectors, new entrants and exits
+        url: https://data.gov.gr/datasets/minenv_inspectors
+      operationId: getEnvironmentalInspectorsData
+      responses:
+        '200':
+          description: An array of environmental inspectors data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnvironmentalInspectorsData'
+              example:
+                - active: 5364
+                  entrants: 4953
+                  exits: 2
+                  quarter: "Q4"
+                  year: 2011
+                - active: 5378
+                  entrants: 45
+                  exits: 31
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/elte_auditors:
+    get:
+      summary: Auditor Accountants
+      tags:
+        - Business and Economy
+      description: Data from HAASOB (aka ELTE), Hellenic Accounting and Auditing Standards Oversight Board, on the number of active auditors, new entrants, exits, and auditing firms within specified dates
+      externalDocs:
+        description: Number of active auditors and audit firms, new entrants and exits
+        url: https://data.gov.gr/datasets/elte_auditors
+      operationId: getELTEAuditorsData
+      responses:
+        '200':
+          description: An array of ELTE auditors data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ELTEAuditorsData'
+              example:
+                - active: 974
+                  entrants: None
+                  exits: None
+                  firms: 28
+                  quarter: "Q4"
+                  year: 2011
+                - active: 1040
+                  entrants: 66
+                  exits: 0
+                  firms: 39
+                  quarter: "Q1"
+                  year: 2012
+
+  /query/oee_accountants:
+    get:
+      summary: Accountants
+      tags:
+        - Business and Economy
+      description: Data from ECG (aka OEE), Economic Chamber of Greece, on the number of active accountants, new entrants, and exits within specified dates
+      externalDocs:
+        description: Number of active accountants, newcomers and exits
+        url: https://data.gov.gr/datasets/oee_accountants
+      operationId: getOEEAccountantsData
+      responses:
+        '200':
+          description: An array of OEE accountants data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OEEAccountantsData'
+              example:
+                - active: 66072
+                  entrants: None
+                  exits: None
+                  quarter: "Q4"
+                - active: 68212
+                  entrants: 2386
+                  exits: 246
+                  quarter: "Q4"
+
+  /query/eeep_casino_tickets:
+    get:
+      summary: Casino Tickets
+      tags:
+        - Business and Economy
+      description: Data from HGC (aka EEEP), Hellenic Gaming Commission, on the number of casino tickets issued within specified dates
+      externalDocs:
+        description: Includes the total number of tickets in casinos in Greece
+        url: https://data.gov.gr/datasets/eeep_casino_tickets
+      operationId: getEEEPcasinoTicketsData
+      responses:
+        '200':
+          description: An array of EEEP casino tickets data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EEEPcasinoTicketsData'
+              example:
+                - tickets: 3307711
+                  year: 2009
+                - tickets: 3069902
+                  year: 2010
+
+# Society
+
+  /query/oaed_unemployment:
+    get:
+      summary: OAED Unemployment
+      tags:
+        - Society
+      description: Data from the Hellenic Manpower Employment Organization (aka OAED) on unemployment including the number of unemployed individuals and benefits for specific dates
+      externalDocs:
+        description: Total registered unemployed OAED in the whole country and per month
+        url: https://data.gov.gr/datasets/oaed_unemployment
+      operationId: getOAEDUnemploymentData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2020-02-01"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2020-10-02"
+      responses:
+        '200':
+          description: An array of OAED unemployment data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OAEDUnemploymentData'
+              example:
+                - asofdate: "2020-09-01"
+                  benefits: 143005
+                  unemployed: 1036582
+                - asofdate: "2020-03-01"
+                  benefits: 233416
+                  unemployed: 1069285
+
+  /query/minint_election_distribution:
+    get:
+      summary: Greek Elections Voter Distribution
+      tags:
+        - Society
+      description: Data from the Ministry of Interior on the distribution of voters by gender in various municipalities for different election types
+      externalDocs:
+        description: Number of Greek Voters by Constituency and Gender
+        url: https://data.gov.gr/datasets/minint_election_distribution
+      operationId: getElectionVoterDistributionData
+      responses:
+        '200':
+          description: An array of election voter distribution data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElectionVoterDistributionData'
+              example: 
+                - election_type: "τοπικής αυτοδιοίκηςη"
+                  electoral_district: "ΧΑΝΙΩΝ"
+                  municipality: "ΚΙΣΣΑΜΟΥ"
+                  voters_female: 6546
+                  voters_male: 6609
+                  year: 2014
+                - election_type: "τοπικής αυτοδιοίκηςη"
+                  electoral_district: "ΧΑΝΙΩΝ"
+                  municipality: "ΠΛΑΤΑΝΙΑ"
+                  voters_female: 10988
+                  voters_male: 10983
+                  year: 2014
+
+  /query/minint_election_age:
+    get:
+      summary: Greek Elections Voter Age Distribution
+      tags:
+        - Society
+      description: Data from the Ministry of Interior on the distribution of voters by age group in various electoral districts for different election types
+      externalDocs:
+        description: Number of Greek Voters per age group
+        url: https://data.gov.gr/datasets/minint_election_age
+      operationId: getElectionVoterAgeDistributionData
+      responses:
+        '200':
+          description: An array of election voter age distribution data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElectionVoterAgeDistributionData'
+              example: 
+                - age_group: "71+"
+                  count: 30606
+                  election_type: "τοπικής αυτοδιοίκηςη"
+                  electoral_district: "ΧΑΝΙΩΝ"
+                  year: 2014
+                - age_group: "71+"
+                  count: 19329
+                  election_type: "τοπικής αυτοδιοίκηςη"
+                  electoral_district: "ΧΙΟΥ"
+                  year: 2014
+
+# State and Democracy
+
+  # Endpoint  https://data.gov.gr/api/v1/query/aade_taxes_category returns no data ([])
+  
+  # Endpoint https://data.gov.gr/api/v1/query/aade_taxes_region returns no data ([])
+  
+  # Endpoint https://data.gov.gr/api/v1/query/aade_taxes_prefecture returns no data ([])
+
+# Transport
+
+  /query/sailing_traffic:
+    get:
+      summary: Sailing Traffic and Routes
+      tags:
+        - Transport
+      description: Data from the Ministry of Maritime Affairs & Insular Policy on sailing traffic for specific dates, including passenger and vehicle counts
+      externalDocs:
+        description: Shipping companies enter data on their itineraries (sailing times, ports of call, passenger data, data on issued tickets, vehicles, etc.)
+        url: https://data.gov.gr/datasets/sailing_traffic
+      operationId: getSailingTrafficData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2020-08-08"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+          example: "2020-11-15"
+      responses:
+        '200':
+          description: An array of sailing traffic data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SailingTrafficData'
+              example:
+                - arrivalport: "905"
+                  arrivalportname: "ΧΡΥΣΟΜΗΛΙΑ (ΦΟΥΡΝΟΙ)"
+                  date: "2020-08-13"
+                  departureport: "KAR"
+                  departureportname: "Καρλόβασι Σάμου"
+                  passengercount: 4
+                  routecode: "KAR905THMFOU"
+                  routecodenames: "Καρλόβασι Σάμου-ΧΡΥΣΟΜΗΛΙΑ (ΦΟΥΡΝΟΙ)-Θύμαινα-Φούρνοι Κορσεών"
+                  vehiclecount: 1
+                - arrivalport: "ADL"
+                  arrivalportname: "Αδάμαντας Μήλου"
+                  date: "2020-08-13"
+                  departureport: "JTR"
+                  departureportname: "Θήρα"
+                  passengercount: 72
+                  routecode: "ADLKREPASJNXJMKJNXKOFKTPJTRFOLADLKRESERPIR"
+                  routecodenames: "Αδάμαντας Μήλου-Καμάρες Σίφνου-Πάρος-Νάξος-Μύκονος-Νάξος-Κουφονήσια Κυκλάδων-Κατάπολα Αμοργού-Θήρα-Φολέγανδρος-Αδάμαντας Μήλου-Καμάρες Σίφνου-Σέριφος-Πειραιάς"
+                  vehiclecount: 0
+
+  /query/download/oasa_ridership:
+    get:
+      summary: OASA Ridership
+      tags:
+        - Transport
+      description: Data from the OASA on ridership for specific dates, including validations and routes per hour
+      externalDocs:
+        description: Travel/transfer validations on fixed transport and bus services
+        url: https://data.gov.gr/datasets/oasa_ridership
+      operationId: getOASARidershipData
+      parameters:
+        - name: date_from
+          in: query
+          required: true
+          description: Start date for the data query.
+          schema:
+            type: string
+            format: date
+            example: "2020-08-08"
+        - name: date_to
+          in: query
+          required: true
+          description: End date for the data query.
+          schema:
+            type: string
+            format: date
+            example: "2020-11-15"
+      responses:
+        '200':
+          description: An array of ridership data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RidershipData'
+              example:
+                - date_hour: "2020-10-10T19:00:00Z"
+                  dv_agency: "001"
+                  dv_platenum_station: "YMI 1064"
+                  dv_route: "Β5 - ΣΤ. ΛΑΡΙΣΗΣ - Λ. ΑΛΕΞΑΝΔΡΑΣ - ΑΓ. ΠΑΡΑΣΚΕΥΗ :: ΑΓ. ΠΑΡΑΣΚΕΥΗ - Λ. ΑΛΕΞΑΝΔΡΑΣ - ΣΤ. ΛΑΡΙΣΗΣ"
+                  dv_validations: 26
+                  load_dt: "2020-10-11T05:56:22Z"
+                  routes_per_hour: 1
+                - date_hour: "2020-10-10T20:00:00Z"
+                  dv_agency: "001"
+                  dv_platenum_station: "YMI 1064"
+                  dv_route: null
+                  dv_validations: 13
+                  load_dt: "2020-10-11T05:56:22Z"
+                  routes_per_hour: null
+
+  /query/road_traffic_attica:
+      get:
+        summary: Road Traffic in Attica
+        tags:
+          - Transport
+        description: Data from the Region of Attica on road traffic for specific dates in Attica, including average speed and car counts
+        externalDocs:
+          description: Measurements of the number of crossings and average speed per measuring station of the traffic monitoring network in Attica
+          url: https://data.gov.gr/datasets/road_traffic_attica
+        operationId: getRoadTrafficDataAttica
+        parameters:
+          - name: date_from
+            in: query
+            required: true
+            description: Start date for the data query.
+            schema:
+              type: string
+              format: date
+            example: "2020-11-05"
+          - name: date_to
+            in: query
+            required: true
+            description: End date for the data query.
+            schema:
+              type: string
+              format: date
+            example: "2020-11-15"
+        responses:
+          '200':
+            description: An array of road traffic data records
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RoadTrafficData'
+                example:
+                  - appprocesstime: "2020-11-05T00:00:00Z"
+                    average_speed: 71.37837837837836
+                    countedcars: 1480
+                    deviceid: "MS1001"
+                    road_info: "120 ΜΕΤΡΑ ΠΡΙΝ ΤΟΝ ΚΟΜΒΟ ΜΕ ΚΑΤΕΥΘΥΝΣΗ ΠΡΟΣ ΑΘΗΝΑ"
+                    road_name: "Λ. ΜΑΡΑΘΩΝΟΣ"
+                  - appprocesstime: "2020-11-05T01:00:00Z"
+                    average_speed: 72.6
+                    countedcars: 400
+                    deviceid: "MS1001"
+                    road_info: "120 ΜΕΤΡΑ ΠΡΙΝ ΤΟΝ ΚΟΜΒΟ ΜΕ ΚΑΤΕΥΘΥΝΣΗ ΠΡΟΣ ΑΘΗΝΑ"
+                    road_name: "Λ. ΜΑΡΑΘΩΝΟΣ"
+                  - appprocesstime: "2020-11-05T02:00:00Z"
+                    average_speed: 71.3
+                    countedcars: 800
+                    deviceid: "MS1001"
+                    road_info: "120 ΜΕΤΡΑ ΠΡΙΝ ΤΟΝ ΚΟΜΒΟ ΜΕ ΚΑΤΕΥΘΥΝΣΗ ΠΡΟΣ ΑΘΗΝΑ"
+                    road_name: "Λ. ΜΑΡΑΘΩΝΟΣ"
+
+# Telecommunication
+
+  /query/eett_telecom_indicators:
+    get:
+      summary: EETT Telecom Indicators
+      tags:
+        - Telecommunication
+      description: Data from the Hellenic Telecommunications and Post Commission (aka EETT) on telecom indicators including broadband penetration and speeds for specific years
+      externalDocs:
+        description: Data on the electronic communications market
+        url: https://data.gov.gr/datasets/eett_telecom_indicators
+      operationId: getEETTTelecomIndicators
+      responses:
+        '200':
+          description: An array of EETT telecom indicators data records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EETTTelecomIndicator'
+              example:
+                - category: "Βroadband_Penetration"
+                  indicator: "Ελλάδα"
+                  value: 0.3523131307067245
+                  year: 2017
+                - category: "Βroadband_Speeds"
+                  indicator: "≤ 24Mbps"
+                  value: 3328574.57
+                  year: 2017
+                - category: "Βroadband_Speeds"
+                  indicator: "> 24 Mbps"
+                  value: 466835.43
+                  year: 2017
+
+# Technology
+
+  /query/internet_traffic:
+    get:
+      summary: Internet Traffic
+      tags:
+        - Technology
+      description: Data from GR-IX on internet traffic data including average and maximum inbound and outbound traffic, along with the date
+      externalDocs:
+        description: Internet traffic in Greece
+        url: https://data.gov.gr/datasets/internet_traffic
+      operationId: getInternetTrafficData
+      responses:
+        '200':
+          description: An array of internet traffic data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InternetTrafficData'
+
+components:
+  schemas:
+  # Crime and Justice
+    TrafficViolationData:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number of occurrences of the violation.
+        violation:
+          type: string
+          description: Description of the traffic violation.
+        year:
+          type: integer
+          description: The year when the violation was recorded.
+      required:
+        - count
+        - violation
+        - year
+
+    TrafficAccidentData:
+      type: object
+      properties:
+        deadly_accidents:
+          type: integer
+          description: The number of deadly accidents.
+        deaths:
+          type: integer
+          description: The number of deaths in traffic accidents.
+        jurisdiction:
+          type: string
+          description: The jurisdiction where the accidents occurred.
+        other_accidents:
+          type: integer
+          description: The number of other (non-deadly and non-serious) accidents.
+        other_injured:
+          type: integer
+          description: The number of people injured in other accidents.
+        serious_accidents:
+          type: integer
+          description: The number of serious accidents.
+        seriously_injured:
+          type: integer
+          description: The number of people seriously injured in accidents.
+        year:
+          type: integer
+          description: The year when the accidents were recorded.
+      required:
+        - deadly_accidents
+        - deaths
+        - jurisdiction
+        - other_accidents
+        - other_injured
+        - serious_accidents
+        - seriously_injured
+        - year
+
+    HCGIncidentData:
+      type: object
+      properties:
+        domestic:
+          type: integer
+          description: The number of domestic incidents.
+        incident:
+          type: string
+          description: Description of the incident.
+        international:
+          type: integer
+          description: The number of international incidents.
+        year:
+          type: integer
+          description: The year when the incidents were recorded.
+      required:
+        - domestic
+        - incident
+        - international
+        - year
+
+    CrimeData:
+      type: object
+      properties:
+        attempted:
+          type: integer
+          description: The number of attempted crimes.
+        committed:
+          type: integer
+          description: The number of committed crimes.
+        crime:
+          type: string
+          description: Description of the crime.
+        domestic_criminals:
+          type: integer
+          description: The number of domestic criminals involved.
+        foreign_criminals:
+          type: integer
+          description: The number of foreign criminals involved.
+        solved:
+          type: integer
+          description: The number of crimes that were solved.
+        year:
+          type: integer
+          description: The year when the crimes were recorded.
+      required:
+        - attempted
+        - committed
+        - crime
+        - domestic_criminals
+        - foreign_criminals
+        - solved
+        - year
+    
+    FinancialCrimeData:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number of occurrences of the financial crime.
+        crime:
+          type: string
+          description: Description of the financial crime.
+        year:
+          type: integer
+          description: The year when the crime was recorded.
+      required:
+        - count
+        - crime
+        - year
+    
+    LawFirmData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: The number of active law firms.
+        entrants:
+          type: integer
+          format: nullable
+          description: The number of new entrant law firms in the period.
+        exits:
+          type: integer
+          format: nullable
+          description: The number of law firms that exited in the period.
+        quarter:
+          type: string
+          description: The quarter of the year.
+        year:
+          type: integer
+          description: The year of the record.
+      required:
+        - active
+        - quarter
+        - year
+
+    LawyerData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: The number of active lawyers.
+        entrants:
+          type: integer
+          description: The number of new entrants in the period.
+        exits:
+          type: integer
+          description: The number of lawyers who exited in the period.
+        quarter:
+          type: string
+          description: The quarter of the year.
+        year:
+          type: integer
+          description: The year of the record.
+      required:
+        - active
+        - entrants
+        - exits
+        - quarter
+        - year
+
+  # Education
+    SchoolData:
+      type: object
+      properties:
+        area:
+          type: string
+          description: The geographical area where the school is located.
+        district:
+          type: string
+          description: The district in which the school is situated.
+        email:
+          type: string
+          format: email
+          description: The email address of the school.
+        fax_number:
+          type: string
+          nullable: true
+          description: The fax number of the school, if available.
+        lat:
+          type: number
+          format: double
+          description: The latitude coordinate of the school's location.
+        lng:
+          type: number
+          format: double
+          description: The longitude coordinate of the school's location.
+        municipality:
+          type: string
+          description: The municipality where the school is located.
+        municipal_unit:
+          type: string
+          description: The municipal unit of the school's location.
+        phone_number:
+          type: string
+          description: The telephone number of the school.
+        prefecture:
+          type: string
+          description: The prefecture in which the school is located.
+        regional_unit:
+          type: string
+          description: The regional unit or division of the school.
+        school_code:
+          type: string
+          description: A unique code identifying the school.
+        school_district:
+          type: string
+          nullable: true
+          description: The school district, if applicable.
+        school_name:
+          type: string
+          description: The official name of the school.
+        school_subtype:
+          type: string
+          description: The subtype of the school, indicating specific characteristics or focus.
+        school_type:
+          type: string
+          description: The type of school (e.g., primary, secondary).
+        street_address:
+          type: string
+          description: The street address of the school.
+        zip_code:
+          type: string
+          description: The postal code for the school's location.
+      required:
+        - area
+        - district
+        - email
+        - school_name
+
+    AcademicStaffData:
+      type: object
+      properties:
+        assistant_professors:
+          type: integer
+          description: The number of assistant professors.
+          example: 3
+        associate_professors:
+          type: integer
+          description: The number of associate professors.
+          example: 4
+        full_professors:
+          type: integer
+          description: The number of full professors.
+          example: 0
+        institution:
+          type: string
+          description: The name of the educational institution.
+          example: "ΑΝΩΤΑΤΗ ΕΚΚΛΗΣΙΑΣΤΙΚΗ ΑΚΑΔ"
+        lecturers:
+          type: integer
+          description: The number of lecturers.
+          example: 0
+        practice_lecturers:
+          type: integer
+          description: The number of practice lecturers.
+          example: 0
+        practice_professors:
+          type: integer
+          description: The number of practice professors.
+          example: 0
+        year:
+          type: integer
+          description: The year when the data was recorded.
+          example: 2018
+      required:
+        - assistant_professors
+        - associate_professors
+        - full_professors
+        - institution
+        - lecturers
+        - practice_lecturers
+        - practice_professors
+        - year
+
+    StudentsSchoolData:
+      type: object
+      properties:
+        district:
+          type: string
+          description: The district where the school is located.
+          example: "ΔΙΕΥΘΥΝΣΗ Δ.Ε. Α΄ ΑΘΗΝΑΣ"
+        jurisdiction:
+          type: string
+          description: The jurisdiction of the school.
+          example: "ΣΙΒΙΤΑΝΙΔΕΙΟΣ ΔΗΜΟΣΙΑ ΣΧΟΛΗ ΤΕΧΝΩΝ ΚΑΙ ΕΠΑΓΓΕΛΜΑΤΩΝ"
+        registered_students_boys:
+          type: integer
+          description: The number of registered boys in the school.
+          example: 320
+        registered_students_girls:
+          type: integer
+          description: The number of registered girls in the school.
+          example: 82
+        school_class:
+          type: string
+          description: The class or category of the school.
+          example: "Επαγγελματικά Λύκεια"
+        school_name:
+          type: string
+          description: The name of the school.
+          example: "2ο ΗΜΕΡΗΣΙΟ ΕΠΑΛ ΣΙΒΙΤΑΝ"
+    
+    InstitutionalAffiliationData:
+      type: object
+      properties:
+        institution:
+          type: string
+          description: The name of the institution.
+          example: "ΤΕΙ ΠΕΛΟΠΟΝΝΗΣΟΥ"
+        ngo:
+          type: integer
+          description: The number of affiliations to non-governmental organizations.
+          example: 0
+        private_sector:
+          type: integer
+          description: The number of affiliations to the private sector.
+          example: 59
+        public_sector:
+          type: integer
+          description: The number of affiliations to the public sector.
+          example: 45
+        year:
+          type: integer
+          description: The year when the data was recorded.
+          example: 2018
+      required:
+        - institution
+        - ngo
+        - private_sector
+        - public_sector
+        - year
+  
+    EudoxusData:
+      type: object
+      properties:
+        department:
+          type: string
+          description: The department of the institution.
+          example: "ΟΙΚΙΑΚΗΣ ΟΙΚΟΝΟΜΙΑΣ ΚΑΙ ΟΙΚΟΛΟΓΙΑΣ"
+        institution:
+          type: string
+          description: The name of the institution.
+          example: "ΧΑΡΟΚΟΠΕΙΟ ΠΑΝΕΠΙΣΤΗΜΙΟ"
+        period:
+          type: string
+          description: The academic period (e.g., Spring, Fall).
+          example: "Εαρινή"
+        studentwithdeliveries:
+          type: integer
+          description: The number of students who received deliveries.
+          example: 19
+        studentwithstatements:
+          type: integer
+          description: The number of students who made statements.
+          example: 60
+        year:
+          type: integer
+          description: The year when the data was recorded.
+          example: 2017
+      required:
+        - department
+        - institution
+        - period
+        - studentwithdeliveries
+        - studentwithstatements
+        - year
+
+  # Society
+    OAEDUnemploymentData:
+        type: object
+        properties:
+          asofdate:
+            type: string
+            format: date
+            description: The date of the data record.
+            example: "2020-09-01"
+          benefits:
+            type: integer
+            description: Number of benefits provided.
+            example: 143005
+          unemployed:
+            type: integer
+            description: Number of unemployed individuals.
+            example: 1036582
+        required:
+          - asofdate
+          - benefits
+          - unemployed
+
+    ElectionVoterDistributionData:
+      type: object
+      properties:
+        election_type:
+          type: string
+          description: The type of the election.
+          example: "τοπικής αυτοδιοίκηςη"
+        electoral_district:
+          type: string
+          description: The electoral district where the election took place.
+          example: "ΧΑΝΙΩΝ"
+        municipality:
+          type: string
+          description: The municipality where the election took place.
+          example: "ΚΙΣΣΑΜΟΥ"
+        voters_female:
+          type: integer
+          description: The number of female voters.
+          example: 6546
+        voters_male:
+          type: integer
+          description: The number of male voters.
+          example: 6609
+        year:
+          type: integer
+          description: The year when the election took place.
+          example: 2014
+      required:
+        - election_type
+        - electoral_district
+        - municipality
+        - voters_female
+        - voters_male
+        - year
+
+    ElectionVoterAgeDistributionData:
+      type: object
+      properties:
+        age_group:
+          type: string
+          description: The age group of the voters.
+          example: "71+"
+        count:
+          type: integer
+          description: The number of voters in the age group.
+          example: 30606
+        election_type:
+          type: string
+          description: The type of the election.
+          example: "τοπικής αυτοδιοίκηςη"
+        electoral_district:
+          type: string
+          description: The electoral district where the election took place.
+          example: "ΧΑΝΙΩΝ"
+        year:
+          type: integer
+          description: The year when the election took place.
+          example: 2014
+      required:
+        - age_group
+        - count
+        - election_type
+        - electoral_district
+        - year
+
+  # Transport
+    SailingTrafficData:
+      type: object
+      properties:
+        arrivalport:
+          type: string
+          description: Code of the arrival port.
+          example: "905"
+        arrivalportname:
+          type: string
+          description: Name of the arrival port.
+          example: "ΧΡΥΣΟΜΗΛΙΑ (ΦΟΥΡΝΟΙ)"
+        date:
+          type: string
+          format: date
+          description: Date of the sailing record.
+          example: "2020-08-13"
+        departureport:
+          type: string
+          description: Code of the departure port.
+          example: "KAR"
+        departureportname:
+          type: string
+          description: Name of the departure port.
+          example: "Καρλόβασι Σάμου"
+        passengercount:
+          type: integer
+          description: Count of passengers.
+          example: 4
+        routecode:
+          type: string
+          description: Code of the route.
+          example: "KAR905THMFOU"
+        routecodenames:
+          type: string
+          description: Names of the ports in the route.
+          example: "Καρλόβασι Σάμου-ΧΡΥΣΟΜΗΛΙΑ (ΦΟΥΡΝΟΙ)-Θύμαινα-Φούρνοι Κορσεών"
+        vehiclecount:
+          type: integer
+          description: Count of vehicles.
+          example: 1
+      required:
+        - arrivalport
+        - arrivalportname
+        - date
+        - departureport
+        - departureportname
+        - passengercount
+        - routecode
+        - routecodenames
+        - vehiclecount
+
+    RidershipData:
+      type: object
+      properties:
+        date_hour:
+          type: string
+          format: date-time
+          description: The date and hour of the record.
+          example: "2020-10-10T19:00:00Z"
+        dv_agency:
+          type: string
+          description: Agency code.
+          example: "001"
+        dv_platenum_station:
+          type: string
+          description: Plate number or station identifier.
+          example: "YMI 1064"
+        dv_route:
+          type: string
+          nullable: true
+          description: Description of the route.
+          example: "Β5 - ΣΤ. ΛΑΡΙΣΗΣ - Λ. ΑΛΕΞΑΝΔΡΑΣ - ΑΓ. ΠΑΡΑΣΚΕΥΗ :: ΑΓ. ΠΑΡΑΣΚΕΥΗ - Λ. ΑΛΕΞΑΝΔΡΑΣ - ΣΤ. ΛΑΡΙΣΗΣ"
+        dv_validations:
+          type: integer
+          description: Number of validations for the time period.
+          example: 26
+        load_dt:
+          type: string
+          format: date-time
+          description: The date and time when the data was loaded.
+          example: "2020-10-11T05:56:22Z"
+        routes_per_hour:
+          type: integer
+          nullable: true
+          description: Number of routes per hour.
+          example: 1
+      required:
+        - date_hour
+        - dv_agency
+        - dv_platenum_station
+        - dv_validations
+        - load_dt
+
+    RoadTrafficData:
+          type: object
+          properties:
+            appprocesstime:
+              type: string
+              format: date-time
+              description: The time when the data was processed.
+              example: "2020-11-05T00:00:00Z"
+            average_speed:
+              type: number
+              format: double
+              description: Average speed of vehicles.
+              example: 71.37837837837836
+            countedcars:
+              type: integer
+              description: Number of cars counted.
+              example: 1480
+            deviceid:
+              type: string
+              description: Identifier for the traffic monitoring device.
+              example: "MS1001"
+            road_info:
+              type: string
+              description: Additional information about the road segment.
+              example: "120 ΜΕΤΡΑ ΠΡΙΝ ΤΟΝ ΚΟΜΒΟ ΜΕ ΚΑΤΕΥΘΥΝΣΗ ΠΡΟΣ ΑΘΗΝΑ"
+            road_name:
+              type: string
+              description: Name of the road.
+              example: "Λ. ΜΑΡΑΘΩΝΟΣ"
+          required:
+            - appprocesstime
+            - average_speed
+            - countedcars
+            - deviceid
+            - road_info
+            - road_name
+  
+  # Environment
+    KTMHareaData:
+      type: object
+      properties:
+        area:
+          type: number
+          format: double
+          description: The area in square meters.
+          example: 2939654.941
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-01"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΤΤΙΚΗΣ ΑΧΑΡΝΩΝ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 5028
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΧΑΡΝΩΝ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "axarnon"
+      required:
+        - area
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+  
+    KTMConfiscationData:
+      type: object
+      properties:
+        confiscations:
+          type: integer
+          description: The number of confiscations.
+          example: 327
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-02"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 1003
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "agelokastro"
+      required:
+        - confiscations
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+
+    KTMLienData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-23"
+        liens:
+          type: integer
+          description: The number of liens.
+          example: 364
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 1003
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "agelokastro"
+      required:
+        - date
+        - liens
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+
+    KTMTransactionData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-04-28"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΚΑΒΑΛΑΣ ΑΚΡΟΠΟΤΑΜΟΥ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 21005
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΚΡΟΠΟΤΑΜΟΥ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "akropotamo"
+        transactions:
+          type: integer
+          description: The number of transactions.
+          example: 10
+      required:
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+        - transactions
+
+    KTMOwnersData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-01"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΙΤΩΛΙΑΣ ΚΑΙ ΑΚΑΡΝΑΝΙΑΣ ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 1003
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΓΓΕΛΟΚΑΣΤΡΟΥ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "agelokastro"
+        owners:
+          type: integer
+          description: The number of property owners.
+          example: 1627
+      required:
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+        - owners
+
+    KTMHPlotsData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-02"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΤΤΙΚΗΣ ΑΧΑΡΝΩΝ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 5028
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΑΧΑΡΝΩΝ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "axarnon"
+        plots:
+          type: integer
+          description: The number of housing plots.
+          example: 46920
+      required:
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+        - plots
+
+    KTMStatusData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the data record.
+          example: "2023-03-01"
+        ota_full_name:
+          type: string
+          description: The full name of the OTA.
+          example: "ΑΡΚΑΔΙΑΣ ΣΤΕΝΟΥ"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 3218
+        ota_name:
+          type: string
+          description: The name of the OTA.
+          example: "ΣΤΕΝΟΥ"
+        ota_name_en:
+          type: string
+          description: The English name of the OTA.
+          example: "steno"
+        status:
+          type: string
+          description: The status of the OTA.
+          example: "ΑΝΑΡΤΗΣΗ"
+      required:
+        - date
+        - ota_full_name
+        - ota_id
+        - ota_name
+        - ota_name_en
+        - status
+
+    ADMIESCADAData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: The date and time of the data record in ISO 8601 format.
+          example: "2023-03-01T00:00:00Z"
+        energy_mwh:
+          type: integer
+          description: The amount of energy in megawatt-hours.
+          example: 886
+      required:
+        - date
+        - energy_mwh
+
+    ADMIEDailyEnergyBalanceData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: The date of the data record in ISO 8601 format.
+          example: "2023-03-01T00:00:00Z"
+        energy_mwh:
+          type: integer
+          description: The amount of energy in megawatt-hours.
+          example: 15284
+        fuel:
+          type: string
+          description: Type of fuel used.
+          example: "ΛΙΓΝΙΤΗΣ"
+        percentage:
+          type: number
+          format: float
+          description: The percentage contribution of the fuel to the total energy.
+          example: 0.1316065923846591
+      required:
+        - date
+        - energy_mwh
+        - fuel
+        - percentage
+
+    CadastreNaturaPlotData:
+      type: object
+      properties:
+        area:
+          type: number
+          format: float
+          description: The area of the plot in square meters.
+          example: 1894778.3375080035
+        date:
+          type: string
+          format: date-time
+          description: The date of the data record in ISO 8601 format.
+          example: "2021-03-02T00:00:00Z"
+        local_authority_id:
+          type: string
+          description: The ID of the local authority.
+          example: "1003"
+        plot_number:
+          type: integer
+          description: The plot number.
+          example: 390
+      required:
+        - area
+        - date
+        - local_authority_id
+        - plot_number
+
+    CadastrePlotData:
+      type: object
+      properties:
+        avg_area:
+          type: number
+          format: float
+          description: The average area of the plots in square meters.
+          example: 7061.933960425182
+        date:
+          type: string
+          format: date-time
+          description: The date of the data record in ISO 8601 format.
+          example: "2021-03-02T00:00:00Z"
+        local_authority_id:
+          type: string
+          description: The ID of the local authority.
+          example: "1003"
+        plot_number:
+          type: integer
+          description: The number of plots.
+          example: 4523
+      required:
+        - avg_area
+        - date
+        - local_authority_id
+        - plot_number
+
+    KtmPlotData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: The date of the data record in ISO 8601 format.
+          example: "2020-12-30"
+        ota_id:
+          type: integer
+          description: The ID of the OTA.
+          example: 5133
+        ota_name:
+          type: string
+          description: The name of the OTA in Greek.
+          example: "ΣΠΑΤΩΝ-ΛΟΥΤΣΑΣ"
+        ota_name_en:
+          type: string
+          description: The name of the OTA in English.
+          example: "spaton-lotsas"
+        plots:
+          type: integer
+          description: The number of plots.
+          example: 39161
+      required:
+        - date
+        - ota_id
+        - ota_name
+        - ota_name_en
+        - plots
+
+    ElectricityConsumptionData:
+      type: object
+      properties:
+        area:
+          type: string
+          description: The geographical area of the data record.
+          example: "ΚΡΗΤΗ"
+        date:
+          type: string
+          format: date-time
+          description: The date and time of the data record in ISO 8601 format.
+          example: "2020-08-09T00:00:00Z"
+        energy_mwh:
+          type: number
+          format: double
+          description: The amount of electricity consumed in megawatt-hours.
+          example: 9539.66
+      required:
+        - area
+        - date
+        - energy_mwh
+
+    UrbanIncidentData:
+      type: object
+      properties:
+        accident_type:
+          type: string
+          description: Type of the accident, if applicable.
+          nullable: true
+        burns:
+          type: integer
+          description: Number of people who suffered burns.
+        damages:
+          type: integer
+          description: The extent of damages caused.
+        deaths:
+          type: integer
+          description: Number of deaths, if any.
+        end_time:
+          type: string
+          format: date-time
+          description: The end time of the incident.
+        firefighters:
+          type: integer
+          description: Number of firefighters involved.
+        fire_station:
+          type: string
+          description: Name of the fire station involved.
+        fire_trucks:
+          type: integer
+          description: Number of fire trucks used.
+        fire_vessels:
+          type: integer
+          description: Number of fire vessels used, if any.
+        incident:
+          type: string
+          description: Brief description of the incident.
+        incident_detail:
+          type: string
+          description: Detailed description of the incident.
+        injuries:
+          type: integer
+          description: Number of injuries reported.
+        location_description:
+          type: string
+          description: Description of the incident location.
+        municipality:
+          type: string
+          description: Name of the municipality where the incident occurred.
+        people_involved:
+          type: integer
+          description: Number of people involved in the incident.
+        prefecture:
+          type: string
+          description: Name of the prefecture where the incident occurred.
+        start_time:
+          type: string
+          format: date-time
+          description: The start time of the incident.
+        village:
+          type: string
+          description: Name of the village where the incident occurred.
+      required:
+        - end_time
+        - firefighters
+        - fire_station
+        - fire_trucks
+        - incident
+        - location_description
+
+    ForestFireData:
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address or location of the forest fire.
+        agricultural_area_burned:
+          type: number
+          format: float
+          description: Area of agricultural land burned (in hectares).
+        airplanes_cl215:
+          type: integer
+          description: Number of CL-215 airplanes used.
+        airplanes_cl415:
+          type: integer
+          description: Number of CL-415 airplanes used.
+        airplanes_gru:
+          type: integer
+          description: Number of GRU airplanes used.
+        airplanes_pzl:
+          type: integer
+          description: Number of PZL airplanes used.
+        army:
+          type: integer
+          description: Number of army personnel involved.
+        crop_residue_area_burned:
+          type: number
+          format: float
+          description: Area of crop residue burned (in hectares).
+        dumping_ground_area_burned:
+          type: number
+          format: float
+          description: Area of dumping ground burned (in hectares).
+        end_time:
+          type: string
+          format: date-time
+          description: The end time of the forest fire
+
+  # Health
+    VaccinationData:
+      type: object
+      properties:
+        area:
+          type: string
+          description: Name of the area where vaccinations are reported.
+        areaid:
+          type: integer
+          description: Unique identifier for the area.
+        dailydose1:
+          type: integer
+          description: Number of first doses administered on the reported day.
+        dailydose2:
+          type: integer
+          description: Number of second doses administered on the reported day.
+        dailydose3:
+          type: integer
+          description: Number of third doses administered on the reported day, if applicable.
+        daydiff:
+          type: integer
+          description: Difference in total vaccinations from the previous day.
+        daytotal:
+          type: integer
+          description: Total number of vaccinations administered on the reported day.
+        referencedate:
+          type: string
+          format: date-time
+          description: The reference date for the data in ISO 8601 format.
+        totaldistinctpersons:
+          type: integer
+          description: Total number of distinct individuals who have received at least one dose.
+        totaldose1:
+          type: integer
+          description: Total number of first doses administered up to the reference date.
+        totaldose2:
+          type: integer
+          description: Total number of second doses administered up to the reference date.
+        totaldose3:
+          type: integer
+          description: Total number of third doses administered up to the reference date, if applicable.
+        totalvaccinations:
+          type: integer
+          description: Total number of vaccinations administered up to the reference date.
+      required:
+        - area
+        - areaid
+        - dailydose1
+        - dailydose2
+        - daytotal
+        - referencedate
+        - totaldistinctpersons
+        - totaldose1
+        - totaldose2
+        - totalvaccinations
+
+    WeeklyVaccinationData:
+      type: object
+      properties:
+        area:
+          type: string
+          description: Name of the area where vaccinations are reported.
+        areaid:
+          type: integer
+          description: Unique identifier for the area.
+        totaldistinctpersons:
+          type: integer
+          description: Total number of distinct individuals who have received at least one dose up to the week reference date.
+        totaldose1:
+          type: integer
+          description: Total number of first doses administered up to the week reference date.
+        totaldose2:
+          type: integer
+          description: Total number of second doses administered up to the week reference date.
+        totaldose3:
+          type: integer
+          description: Total number of third doses administered up to the week reference date, if applicable.
+        totalvaccinations:
+          type: integer
+          description: Total number of vaccinations administered up to the week reference date.
+        weekdiff:
+          type: integer
+          description: Difference in total vaccinations from the previous week.
+        weeklydose1:
+          type: integer
+          description: Number of first doses administered during the week.
+        weeklydose2:
+          type: integer
+          description: Number of second doses administered during the week.
+        weeklydose3:
+          type: integer
+          description: Number of third doses administered during the week, if applicable.
+        weekreferencedate:
+          type: string
+          format: date-time
+          description: The reference date for the weekly data in ISO 8601 format.
+        weektotal:
+          type: integer
+          description: Total number of vaccinations administered during the week.
+      required:
+        - area
+        - areaid
+        - totaldistinctpersons
+        - totaldose1
+        - totaldose2
+        - totalvaccinations
+        - weekdiff
+        - weeklydose1
+        - weeklydose2
+        - weekreferencedate
+        - weektotal
+
+    EfetInspectionsData:
+      type: object
+      properties:
+        inspections:
+          type: integer
+          nullable: true
+          description: Number of inspections conducted in the given year.
+        penalties:
+          type: number
+          format: float
+          description: Total amount of penalties imposed in Euros.
+        violating_organizations:
+          type: integer
+          description: Number of organizations found to be violating regulations.
+        violations:
+          type: integer
+          nullable: true
+          description: Number of violations recorded.
+        year:
+          type: integer
+          description: Year in which the data was recorded.
+      required:
+        - penalties
+        - violating_organizations
+        - year
+
+    PharmacistsData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active pharmacists.
+        entrants:
+          type: integer
+          nullable: true
+          description: Number of new entrants to the profession.
+        exits:
+          type: integer
+          description: Number of pharmacists who exited the profession.
+        quarter:
+          type: string
+          description: Quarter of the year for the data.
+        year:
+          type: integer
+          description: Year of the data record.
+      required:
+        - active
+        - exits
+        - quarter
+        - year
+      example:
+        active: 6000
+        entrants: 120
+        exits: 45
+        quarter: 'Q2'
+        year: 2013
+
+    PharmacyData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active pharmacies.
+          example: 10223
+        entrants:
+          type: integer
+          nullable: true
+          description: Number of new entrants in the pharmacy sector.
+          example: 156
+        exits:
+          type: integer
+          nullable: true
+          description: Number of exits from the pharmacy sector.
+          example: 51
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q1"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2012
+      required:
+        - active
+        - quarter
+        - year
+
+    DentistData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active dentists.
+          example: 15818
+        entrants:
+          type: integer
+          nullable: true
+          description: Number of new entrants in the dental sector.
+          example: 81
+        exits:
+          type: integer
+          nullable: true
+          description: Number of exits from the dental sector.
+          example: 6
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q1"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2012
+      required:
+        - active
+        - quarter
+        - year
+
+    DoctorData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active doctors.
+          example: 76438
+        entrants:
+          type: integer
+          nullable: true
+          description: Number of new entrants in the medical sector.
+          example: 317
+        exits:
+          type: integer
+          nullable: true
+          description: Number of exits from the medical sector.
+          example: 7
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q1"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2012
+      required:
+        - active
+        - quarter
+        - year
+
+  # Business and Economy
+    TourismAgenciesData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active tourism agencies.
+          example: 4105
+        entrants:
+          type: integer
+          description: Number of new entrants in the tourism sector.
+          example: 300
+        exits:
+          type: integer
+          description: Number of exits from the tourism sector.
+          example: 355
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q4"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2011
+      required:
+        - active
+        - quarter
+        - year
+
+    RealtorsData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active realtors.
+          example: 5050
+        entrants:
+          type: integer
+          description: Number of new entrants in the real estate sector.
+          example: 212
+        exits:
+          type: integer
+          description: Number of exits from the real estate sector.
+          example: 193
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q4"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2011
+      required:
+        - active
+        - quarter
+        - year
+
+    EnvironmentalInspectorsData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active environmental inspectors.
+          example: 5364
+        entrants:
+          type: integer
+          description: Number of new entrants in the environmental inspection sector.
+          example: 4953
+        exits:
+          type: integer
+          description: Number of exits from the environmental inspection sector.
+          example: 2
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q4"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2011
+      required:
+        - active
+        - quarter
+        - year
+
+    ELTEAuditorsData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active auditors.
+          example: 974
+        entrants:
+          type: integer
+          description: Number of new entrants in the auditing sector.
+          example: 66
+        exits:
+          type: integer
+          description: Number of exits from the auditing sector.
+          example: 0
+        firms:
+          type: integer
+          description: Number of auditing firms.
+          example: 39
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q1"
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2012
+      required:
+        - active
+        - firms
+        - quarter
+        - year
+
+    OEEAccountantsData:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Number of active accountants.
+          example: 66072
+        entrants:
+          type: integer
+          description: Number of new entrants in the accounting sector.
+          example: 2386
+        exits:
+          type: integer
+          description: Number of exits from the accounting sector.
+          example: 246
+        quarter:
+          type: string
+          description: Fiscal quarter of the data record.
+          example: "Q4"
+      required:
+        - active
+        - quarter
+
+    EEEPcasinoTicketsData:
+      type: object
+      properties:
+        tickets:
+          type: integer
+          description: Number of casino tickets issued.
+          example: 3307711
+        year:
+          type: integer
+          description: Year of the data record.
+          example: 2009
+      required:
+        - tickets
+        - year
+
+  # Telecommunication
+    EETTTelecomIndicator:
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the telecom indicator.
+          example: "Βroadband_Penetration"
+        indicator:
+          type: string
+          description: The specific indicator within the category.
+          example: "Ελλάδα"
+        value:
+          type: number
+          format: double
+          description: The value of the indicator.
+          example: 0.3523131307067245
+        year:
+          type: integer
+          description: The year of the data record.
+          example: 2017
+      required:
+        - category
+        - indicator
+        - value
+        - year
+
+  # Technology  
+    InternetTrafficData:
+      type: object
+      properties:
+        avg_in:
+          type: integer
+          format: int64
+          description: Average inbound traffic.
+        avg_out:
+          type: integer
+          format: int64
+          description: Average outbound traffic.
+        date:
+          type: string
+          format: date-time
+          description: The date and time of the record.
+        max_in:
+          type: integer
+          format: int64
+          description: Maximum inbound traffic.
+        max_out:
+          type: integer
+          format: int64
+          description: Maximum outbound traffic.
+      required:
+        - avg_in
+        - avg_out
+        - date
+        - max_in
+        - max_out
+
+
+  securitySchemes:
+      ApiToken:
+         type: apiKey
+         name: Authorization
+         in: header
+         description: 'Prefix the value with \"Token\" to indicate the custom authorization type' 
+
+security:
+   - ApiToken: []
