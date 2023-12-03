@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - OASA Ridership URI corrected from `/query/download/oasa_ridership`
-to `/query/oasa_ridership`
+to `/query/oasa_ridership` (https://github.com/KAUTH/govgr-opendata-api-schema/pull/1)
 
 ## [0.0.1] - 2023-11-26
 
