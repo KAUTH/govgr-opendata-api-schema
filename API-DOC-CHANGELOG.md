@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-12-03
+
+### Fixed
+- OASA Ridership URI corrected from `/query/download/oasa_ridership`
+to `/query/oasa_ridership`
+
 ## [0.0.1] - 2023-11-26
 
+### Added
 - Initial OpenAPI schema for https://data.gov.gr/api/v1

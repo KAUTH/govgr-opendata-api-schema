@@ -1767,7 +1767,7 @@ paths:
                   routecodenames: "Αδάμαντας Μήλου-Καμάρες Σίφνου-Πάρος-Νάξος-Μύκονος-Νάξος-Κουφονήσια Κυκλάδων-Κατάπολα Αμοργού-Θήρα-Φολέγανδρος-Αδάμαντας Μήλου-Καμάρες Σίφνου-Σέριφος-Πειραιάς"
                   vehiclecount: 0
 
-  /query/download/oasa_ridership:
+  /query/oasa_ridership:
     get:
       summary: OASA Ridership
       tags:
