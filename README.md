@@ -7,7 +7,7 @@ According to [https://repository.data.gov.gr/about](https://repository.data.gov.
 > data.gov.gr is the central catalog of public data that provides access to databases of Greek government agencies. The purpose of data.gov.gr is to increase access to high-value, machine-readable datasets by providing unified services for cataloging, indexing, storage, search, and availability of public sector data and information, as well as online services to citizens and third-party information systems.
 
 ## API Documentation
-The API documentation was created based on the [OpenAPI Specification](https://swagger.io/specification/) and the OpenAPI Document can be found [here](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/openapi-data-gov-gr.yaml).
+The API documentation was created based on the [OpenAPI Specification](https://swagger.io/specification/) and the OpenAPI Document can be found [here](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/docs/openapi-data-gov-gr.yaml).
 
 ### Source of Data
 The open data referenced are published by central government, local authorities, and public bodies to help build products and services, and you can find them at https://data.gov.gr.
@@ -28,7 +28,7 @@ the latest date collected accordingly, which is not part of the documentation
 or submit a [PR](https://github.com/KAUTH/govgr-opendata-api-schema/pulls) if you notice discrepancies, missing items, or any other issues.
 
 ### Changelog
-Changes to the [API documentation](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/openapi-data-gov-gr.yaml)
+Changes to the [API documentation](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/docs/openapi-data-gov-gr.yaml)
 are accompanied by a version update, documented in
 https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/API-DOC-CHANGELOG.md.
 
