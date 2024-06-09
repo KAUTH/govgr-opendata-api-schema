@@ -738,9 +738,9 @@ class UrbanIncidentData(BaseModel):
     damages: Annotated[
         Optional[int], Field(description="The extent of damages caused.")
     ] = None
-    deaths: Annotated[Optional[int], Field(description="Number of deaths, if any.")] = (
-        None
-    )
+    deaths: Annotated[
+        Optional[int], Field(description="Number of deaths, if any.")
+    ] = None
     end_time: Annotated[datetime, Field(description="The end time of the incident.")]
     firefighters: Annotated[int, Field(description="Number of firefighters involved.")]
     fire_station: Annotated[
