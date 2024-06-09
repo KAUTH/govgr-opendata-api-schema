@@ -1,6 +1,8 @@
 # Unofficial data.gov.gr API Schema
 This repository is an unofficial API documentation for the https://data.gov.gr API.
 
+Additionally, we generate data models based on the aforementioned documentation. For more information see [Data Models](#data-models).
+
 ## What is data.gov.gr?
 According to [https://repository.data.gov.gr/about](https://repository.data.gov.gr/about):
 
@@ -39,6 +41,10 @@ is no official documentation.
 
 As mentioned in https://swagger.io/specification/:
 > An OpenAPI definition can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases.
+
+## Data Models
+Using the OpenAPI document we can generate data models to be used with different programming languages:
+- Python: [datagovgr-datamodels](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/datamodels/python/)
 
 ## Projects
 Below is a list of projects that are using our API documentation:
