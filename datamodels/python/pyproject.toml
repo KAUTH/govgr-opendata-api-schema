@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "datagovgr-datamodels"
+version = "0.1.0-alpha.1"
+description = "Datamodels generated from the data.gov.gr OpenAPI documentation"
+authors = ["Konstantinos Papadopoulos <konpap1996@yahoo.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/datamodels/python"
+repository = "https://github.com/KAUTH/govgr-opendata-api-schema"
+documentation = "https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/datamodels/python/README.md"
+keywords = ["gov-gr", "datamodels", "open-data"]
+classifiers=[
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11 ",
+        "Programming Language :: Python :: 3.12 ",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Software Development",
+]
+packages = [{include = "datagovgr_datamodels"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.extras]
+pydantic = ["pydantic"]
+
+[tool.poetry.group.dev.dependencies]
+datamodel-code-generator = "^0.25.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
