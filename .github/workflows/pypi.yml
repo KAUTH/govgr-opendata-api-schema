@@ -38,6 +38,7 @@ jobs:
         twine check dist/*
 
     - name: Publish package to PyPI
-      working-directory: ./datamodels/python
       if: github.repository == 'KAUTH/govgr-opendata-api-schema'
       uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: datamodels/python/dist
