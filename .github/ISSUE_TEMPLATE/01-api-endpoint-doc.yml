@@ -1,0 +1,61 @@
+name: API Endpoint Documentation 
+description: Document a new API endpoint from data.gov.gr.
+title: "[Endpoint]: "
+labels: ["api-endpoint", "openapi"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Extending the documentation in [openapi-data-gov-gr.yaml](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/docs/openapi-data-gov-gr.yaml)
+  
+  - type: input
+    id: endpoint
+    attributes:
+      label: Endpoint
+      description: The name of the dataset
+      placeholder: e.g., Μέλη ΔΕΠ
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Category that the dataset belongs to
+      options:
+        - Business and Economy (Οικονομία και Εμπόριο)
+        - Crime and Justice (Δημόσια Τάξη και Δικαιοσύνη)
+        - Education (Εκπαίδευση)
+        - Environment (Περιβάλλον και Ενέργεια)
+        - Health (Υγεία)
+        - Society (Κοινωνία)
+        - Technology (Τεχνολογία)
+        - Telecommunication (Τηλεπικοινωνίες)
+        - Transport (Μετακινήσεις)
+    validations:
+      required: true
+  
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: The dataset link from https://data.gov.gr/
+      placeholder: e.g., https://data.gov.gr/datasets/minedu_dep/
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: The endpoint URL
+      placeholder: e.g., https://data.gov.gr/api/v1/query/minedu_dep
+    validations:
+      required: true
+  
+  - type: textarea
+    id: other
+    attributes:
+      label: Other
+      description: Leave any other remarks you might have
