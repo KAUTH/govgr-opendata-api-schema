@@ -56,6 +56,8 @@ If you want to add your project, open a PR [here](https://github.com/KAUTH/govgr
 [MIT License](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/LICENSE)
 
 ## Contributing
+For information on how to start contributing to the project read our [CONTRIBUTING.md](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/CONTRIBUTING.md).
+
 You can always submit a PR if you want to suggest improvements or fix issues.
 
 Check out the open issues at https://github.com/KAUTH/govgr-opendata-api-schema/issues.
