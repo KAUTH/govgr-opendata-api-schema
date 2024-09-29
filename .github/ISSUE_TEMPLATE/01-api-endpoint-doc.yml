@@ -7,7 +7,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Extending the documentation in [openapi-data-gov-gr.yaml](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/docs/openapi-data-gov-gr.yaml)
+        Extending the documentation in [openapi-data-gov-gr.yaml](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/docs/openapi-data-gov-gr.yaml).
+        Read the [docs](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/CONTRIBUTING.md#adding-an-endpoint-to-the-openapi-documentation) for more information.
   
   - type: input
     id: endpoint
