@@ -75,9 +75,17 @@ Follow the format already displayed in https://github.com/KAUTH/govgr-opendata-a
 Notes:
 - For the `externalDocs` -> `description` we usually use the field "Περιγραφή δεδομένων" from the endpoint's page.
 
-4. Update relevant repo files.
-- Update the [API Doc Version](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/API-DOC-VERSION)
-- Update the [Changelog](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/API-DOC-CHANGELOG.md) to reflect the modifications to the API docs
+4. Verify the documented endpoint
+
+By visiting `https://data.gov.gr/api/v1/datasets/<dataset-identifier>` we can verify the fields and their types, while also getting some additional information that we can use in our documentation.
+Visit in your browser, for example: [https://data.gov.gr/api/v1/datasets/minedu_dep](https://data.gov.gr/api/v1/datasets/minedu_dep)
+
+5. Update relevant repo files
+
+- Update the [API Doc Version](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/API-DOC-VERSION) for the API documentation and for the relevant data models 
+(e.g., for Python: [API-DOC-VERSION](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/datamodels/python/datagovgr_datamodels/API-DOC-VERSION)).
+- Update the [Changelog](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/API-DOC-CHANGELOG.md) to reflect the modifications to the API docs and the relevant Changelog
+for the data models (e.g., for Python: [CHANGELOG.md](https://github.com/KAUTH/govgr-opendata-api-schema/blob/main/datamodels/python/CHANGELOG.md)).
 
 
 For any other questions, leave a comment or open an issue. Thanks for contributing!
